@@ -165,4 +165,30 @@ public class UI {
         scanner.nextLine();
         return num;
     }
+    private static void addDrinkScreen(Scanner scanner, Order order) {
+        int sizeChoice = 0;
+        while (sizeChoice < 1 || sizeChoice > 3) {
+            System.out.println("\nSelect Drink Size:");
+            System.out.println("1) Small");
+            System.out.println("2) Medium");
+            System.out.println("3) Large");
+            System.out.print("Enter option: ");
+            sizeChoice = readInt(scanner);
+        }
+        String drinkSize = (sizeChoice == 1) ? "Small" : (sizeChoice == 2) ? "Medium" : "Large";
+
+        String[] flavorOptions = {"Sprite", "Water", "HI-C Orange"};
+        int flavorChoice = 0;
+        while (flavorChoice < 1 || flavorChoice > flavorOptions.length) {
+            System.out.println("\nSelect Drink Flavor:");
+            printOptions(flavorOptions);
+            System.out.print("Enter option: ");
+            flavorChoice = readInt(scanner);
+        }
+        String flavor = flavorOptions[flavorChoice - 1];
+
+        order.addDrink(new Drink(drinkSize, flavor));
+        System.out.println("Drink added to your order.");
+    }
+  
 }
