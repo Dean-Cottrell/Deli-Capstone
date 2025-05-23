@@ -28,4 +28,14 @@ public class UI {
         System.out.println("Selected option: " + option);
         scanner.close();
     }
+    private static int showOrderScreen(Scanner scanner) {
+        System.out.println("\n--- Order Screen ---");
+        System.out.println("1) Add Sandwich");
+        System.out.println("2) Add Drink");
+        System.out.println("3) Add Chips");
+        System.out.println("4) Checkout");
+        System.out.println("0) Cancel Order");
+        System.out.print("Enter option: ");
+        return readInt(scanner);
+    }
 }
