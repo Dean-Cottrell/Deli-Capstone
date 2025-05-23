@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.order;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +8,11 @@ import java.nio.file.Path;
 
 public class OrderFileManager {
     private String fileName;
+
+    public OrderFileManager(String fileName) {
+        this.fileName = fileName;
+    }
+
     public void generateReceipt(Order order) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
             writer.println(order.details());

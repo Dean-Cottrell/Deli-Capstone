@@ -1,14 +1,10 @@
-package com.pluralsight;
+package com.pluralsight.topping;
 
-public abstract class Topping {  // Changed from Toppings to Topping
-    protected String name;  // Changed private to protected
+public abstract class Topping {
+    protected String name;
 
     public Topping(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public abstract double getPrice(String size);

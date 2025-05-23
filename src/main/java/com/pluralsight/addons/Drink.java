@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.addons;
 
 public class Drink {
     private String size;

@@ -1,6 +1,4 @@
-package com.pluralsight.sandwich;
-
-import com.pluralsight.topping.Topping;
+package com.pluralsight.topping;
 
 public class Meat extends Topping {
     public Meat(String name) {
