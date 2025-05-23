@@ -1,17 +1,19 @@
-package com.pluralsight;
+package com.pluralsight.sandwich;
 
-public class Meat extends Toppings {
+import com.pluralsight.topping.Topping;
+
+public class Meat extends Topping {
     public Meat(String name) {
         super(name);
-
     }
 
+    @Override
     public double getPrice(String size) {
         return switch (size) {
             case "4" -> 1.00;
             case "8" -> 2.00;
             case "12" -> 3.00;
-            default -> -1;
+            default -> 0.00;
         };
     }
 }
