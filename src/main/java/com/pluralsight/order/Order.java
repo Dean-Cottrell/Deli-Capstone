@@ -39,7 +39,7 @@ public class Order {
     public double calculateTotal() {
         double total = 0;
         for (Sandwich s : sandwiches) {
-            total += s.calculatePrice();
+            total += s.calculateTotal();
         }
         for (Drink d : drinks) {
             total += d.getPrice();

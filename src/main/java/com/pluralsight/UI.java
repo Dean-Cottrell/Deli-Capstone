@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.io.File;
 import com.pluralsight.order.Order;
 import com.pluralsight.order.OrderFileManager;
 import com.pluralsight.sandwich.Sandwich;
@@ -28,9 +29,9 @@ public class UI {
     }
 
     private static int showHomeScreen(Scanner scanner) {
-        System.out.println("\n--- Welcome to Dean's Deli ---");
-        System.out.println("1) New Order");
-        System.out.println("0) Exit");
+        System.out.println("\n Welcome to Dean's Deli!! ");
+        System.out.println("1: New Order");
+        System.out.println("0: Exit");
         System.out.print("Enter option: ");
         return readInt(scanner);
     }
@@ -68,12 +69,12 @@ public class UI {
     }
 
     private static int showOrderScreen(Scanner scanner) {
-        System.out.println("\n--- Order Screen ---");
-        System.out.println("1) Add Sandwich");
-        System.out.println("2) Add Drink");
-        System.out.println("3) Add Chips");
-        System.out.println("4) Checkout");
-        System.out.println("0) Cancel Order");
+        System.out.println("\n Order Screen ");
+        System.out.println("1: Add Sandwich");
+        System.out.println("2: Add Drink");
+        System.out.println("3: Add Chips");
+        System.out.println("4: Checkout");
+        System.out.println("0: Cancel Order");
         System.out.print("Enter option: ");
         return readInt(scanner);
     }
@@ -100,46 +101,55 @@ public class UI {
             System.out.print("Enter option: ");
             breadChoice = readInt(scanner);
         }
-        String breadType = "";
-        switch (breadChoice) {
-            case 1: breadType = "White"; break;
-            case 2: breadType = "Wheat"; break;
-            case 3: breadType = "Rye"; break;
-            case 4: breadType = "Wrap"; break;
-        }
-
-        String[] toppingOptions = {
-                "Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon",
-                "American", "Provolone", "Cheddar", "Swiss",
-                "Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños", "Cucumbers", "Pickles", "Guacamole", "Mushrooms",
-                "Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette"
+        String breadType = switch (breadChoice) {
+            case 1 -> "White";
+            case 2 -> "Wheat";
+            case 3 -> "Rye";
+            case 4 -> "Wrap";
+            default -> "";
         };
+
         List<Topping> toppings = new ArrayList<>();
-        int toppingCount = 0;
-        System.out.println("Add Toppings (select up to 5, enter 0 to finish):");
-        while (toppingCount < 5) {
-            printOptions(toppingOptions);
-            System.out.println("0) Done");
-            System.out.print("Enter option: ");
-            int choice = readInt(scanner);
-            if (choice == 0) {
-                break;
-            } else if (choice < 1 || choice > toppingOptions.length) {
-                System.out.println("Invalid choice. Try again.");
-            } else {
-                toppings.add(new Topping(toppingOptions[choice - 1]) {
-                    @Override
-                    public double getPrice(String size) {
-                        return 0;
-                    }
-                });
-                toppingCount++;
+
+        String[] meatOptions = {"Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"};
+        System.out.println("Select Meat (Choose one):");
+        printOptions(meatOptions);
+        System.out.print("Enter option: ");
+        int meatChoice = readInt(scanner);
+        toppings.add(new Topping(meatOptions[meatChoice - 1]) {
+            @Override
+            public double getPrice(String size) {
+                return 0;
             }
-        }
+        });
+
+        String[] cheeseOptions = {"American", "Provolone", "Cheddar", "Swiss"};
+        System.out.println("Select Cheese (Choose one):");
+        printOptions(cheeseOptions);
+        System.out.print("Enter option: ");
+        int cheeseChoice = readInt(scanner);
+        toppings.add(new Topping(cheeseOptions[cheeseChoice - 1]) {
+            @Override
+            public double getPrice(String size) {
+                return 0;
+            }
+        });
+
+        String[] sauceOptions = {"Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette"};
+        System.out.println("Select Sauce (Choose one):");
+        printOptions(sauceOptions);
+        System.out.print("Enter option: ");
+        int sauceChoice = readInt(scanner);
+        toppings.add(new Topping(sauceOptions[sauceChoice - 1]) {
+            @Override
+            public double getPrice(String size) {
+                return 0;
+            }
+        });
 
         int toastChoice = 0;
         while (toastChoice != 1 && toastChoice != 2) {
-            System.out.println("Would you like your sandwich toasted? (1: Yes, 2: No)");
+            System.out.println("Would you like your sandwich toasted? 1: Yes  2: No");
             toastChoice = readInt(scanner);
         }
         boolean toasted = (toastChoice == 1);
@@ -165,30 +175,57 @@ public class UI {
         scanner.nextLine();
         return num;
     }
+
     private static void addDrinkScreen(Scanner scanner, Order order) {
-        int sizeChoice = 0;
-        while (sizeChoice < 1 || sizeChoice > 3) {
-            System.out.println("\nSelect Drink Size:");
-            System.out.println("1) Small");
-            System.out.println("2) Medium");
-            System.out.println("3) Large");
-            System.out.print("Enter option: ");
-            sizeChoice = readInt(scanner);
-        }
-        String drinkSize = (sizeChoice == 1) ? "Small" : (sizeChoice == 2) ? "Medium" : "Large";
+        String[] drinkOptions = {"Small", "Medium", "Large"};
+        System.out.println("Select Drink Size:");
+        printOptions(drinkOptions);
+        int sizeChoice = readInt(scanner);
+        String drinkSize = drinkOptions[sizeChoice - 1];
 
         String[] flavorOptions = {"Sprite", "Water", "HI-C Orange"};
-        int flavorChoice = 0;
-        while (flavorChoice < 1 || flavorChoice > flavorOptions.length) {
-            System.out.println("\nSelect Drink Flavor:");
-            printOptions(flavorOptions);
-            System.out.print("Enter option: ");
-            flavorChoice = readInt(scanner);
-        }
+        System.out.println("Select Drink Flavor:");
+        printOptions(flavorOptions);
+        int flavorChoice = readInt(scanner);
         String flavor = flavorOptions[flavorChoice - 1];
 
         order.addDrink(new Drink(drinkSize, flavor));
         System.out.println("Drink added to your order.");
     }
-  
-}
+
+    private static void addChipsScreen(Scanner scanner, Order order) {
+        String[] chipsOptions = {"Fritos", "Lay's", "Pringles"};
+        System.out.println("Select Chips:");
+        printOptions(chipsOptions);
+        int chipsChoice = readInt(scanner);
+        order.addChips(new Chips(chipsOptions[chipsChoice - 1]));
+        System.out.println("Chips added to your order.");
+    }
+
+    private static boolean checkoutScreen(Scanner scanner, Order order) {
+        System.out.println("\n Checkout: ");
+        System.out.println(order.details());
+
+        int confirmChoice = 0;
+        while (confirmChoice != 1 && confirmChoice != 2) {
+            System.out.println("Confirm order? (1: Confirm, 2: Cancel)");
+            confirmChoice = readInt(scanner);
+        }
+
+        if (confirmChoice == 1) {
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+            String filename = now.format(formatter) + ".txt";
+            File receiptDir = new File("receipts");
+            if (!receiptDir.exists()) {
+                receiptDir.mkdirs();
+            }
+            OrderFileManager manager = new OrderFileManager("receipts/" + filename);
+            manager.generateReceipt(order);
+            System.out.println("Order confirmed! Receipt saved as: " + filename);
+            return true;
+        } else {
+            return false;
+        }
+        }
+    }

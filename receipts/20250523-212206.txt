@@ -1,0 +1,12 @@
+Order ID: 1
+Sandwiches:
+Size: 4 inches
+Bread: White
+Toasted: Yes
+Meats: Steak
+Cheeses: American
+Sauces: Mayo
+Total: $7.99
+Drinks:
+Chips:
+Total Price: $7.99
