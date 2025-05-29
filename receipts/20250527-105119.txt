@@ -1,0 +1,21 @@
+Order ID: 1
+Sandwiches:
+Size: 12 inches
+Bread: Wrap
+Toasted: Yes
+Meats: Chicken
+Cheeses: American
+Sauces: Ranch
+Total: $13.99
+Size: 8 inches
+Bread: White
+Toasted: Yes
+Meats: Bacon
+Cheeses: American
+Sauces: Ketchup
+Total: $10.99
+Drinks:
+Large oz Sprite - $0.0
+Chips:
+Pringles Chips - $1.50
+Total Price: $26.48

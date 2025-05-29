@@ -1,6 +1,8 @@
 package com.pluralsight.sandwich;
 
 import com.pluralsight.topping.Topping;
+import com.pluralsight.topping.RegularTopping;
+import com.pluralsight.topping.PremiumTopping;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,38 +10,28 @@ public class Sandwich {
     private String size;
     private String breadType;
     private boolean toasted;
-    private List<Topping> meats;
-    private List<Topping> cheeses;
-    private List<Topping> sauces;
+    private List<PremiumTopping> premiumToppings;
+    private List<RegularTopping> regularToppings;
 
     public Sandwich(String size, String breadType, List<Topping> toppings) {
         this.size = size;
         this.breadType = breadType;
         this.toasted = false;
-        meats = new ArrayList<>();
-        cheeses = new ArrayList<>();
-        sauces = new ArrayList<>();
+        premiumToppings = new ArrayList<>();
+        regularToppings = new ArrayList<>();
+
         for (Topping topping : toppings) {
-            if (isMeat(topping.getName())) {
-                meats.add(topping);
-            } else if (isCheese(topping.getName())) {
-                cheeses.add(topping);
-            } else if (isSauce(topping.getName())) {
-                sauces.add(topping);
+            if (isPremium(topping.getName())) {
+                premiumToppings.add((PremiumTopping) topping);
+            } else {
+                regularToppings.add((RegularTopping) topping);
             }
         }
     }
 
-    private boolean isMeat(String name) {
-        return List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon").contains(name);
-    }
-
-    private boolean isCheese(String name) {
-        return List.of("American", "Provolone", "Cheddar", "Swiss").contains(name);
-    }
-
-    private boolean isSauce(String name) {
-        return List.of("Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette").contains(name);
+    private boolean isPremium(String name) {
+        return List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon",
+                "American", "Provolone", "Cheddar", "Swiss").contains(name);
     }
 
     public double calculateTotal() {
@@ -49,7 +41,8 @@ public class Sandwich {
             case "12" -> 10.99;
             default -> 0;
         };
-        double toppingPrice = (meats.size() * 1.50) + (cheeses.size() * 1.00) + (sauces.size() * 0.50);
+        double toppingPrice = premiumToppings.stream().mapToDouble(t -> t.getPrice(size)).sum() +
+                regularToppings.stream().mapToDouble(t -> t.getPrice(size)).sum();
         return basePrice + toppingPrice;
     }
 
@@ -57,21 +50,13 @@ public class Sandwich {
         return "Size: " + size + " inches\n" +
                 "Bread: " + breadType + "\n" +
                 "Toasted: " + (toasted ? "Yes" : "No") + "\n" +
-                "Meats: " + (meats.isEmpty() ? "None" : formatToppings(meats)) + "\n" +
-                "Cheeses: " + (cheeses.isEmpty() ? "None" : formatToppings(cheeses)) + "\n" +
-                "Sauces: " + (sauces.isEmpty() ? "None" : formatToppings(sauces)) + "\n" +
+                "Premium Toppings: " + formatToppings(premiumToppings) + "\n" +
+                "Regular Toppings: " + formatToppings(regularToppings) + "\n" +
                 "Total: $" + String.format("%.2f", calculateTotal());
     }
 
-    private String formatToppings(List<Topping> toppings) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < toppings.size(); i++) {
-            sb.append(toppings.get(i).getName());
-            if (i < toppings.size() - 1) {
-                sb.append(", ");
-            }
-        }
-        return sb.toString();
+    private String formatToppings(List<? extends Topping> toppings) {
+        return toppings.isEmpty() ? "None" : String.join(", ", toppings.stream().map(Topping::getName).toList());
     }
 
     public void setToasted(boolean toasted) {

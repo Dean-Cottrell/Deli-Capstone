@@ -1,0 +1,6 @@
+Order ID: 1
+Sandwiches:
+Drinks:
+Medium oz Water - $2.5
+Chips:
+Total Price: $2.5

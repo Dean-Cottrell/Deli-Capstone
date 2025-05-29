@@ -11,9 +11,9 @@ public class Drink {
 
     public double getPrice() {
         return switch (size) {
-            case "4" -> 2.00;
-            case "8" -> 2.50;
-            case "12" -> 3.00;
+            case "Small" -> 2.00;
+            case "Medium" -> 2.50;
+            case "large" -> 3.00;
             default -> 0.00;
         };
     }
