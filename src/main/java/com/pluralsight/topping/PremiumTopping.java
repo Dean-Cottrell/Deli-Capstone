@@ -7,6 +7,6 @@ public class PremiumTopping extends Topping {
 
     @Override
     public double getPrice(String size) {
-        return 1.50;
+        return 0.00;
     }
 }

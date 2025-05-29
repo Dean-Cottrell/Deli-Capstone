@@ -200,7 +200,7 @@ public class UI {
 
         System.out.println("Drink added to your order: " + drinkType + " (" + drinkSize + ").");
     }
-    
+
     private static void addChipsScreen(Scanner scanner, Order order) {
         String[] chipsOptions = {"Classic", "BBQ", "Sour Cream & Onion", "Cheddar"};
         System.out.println("Select Chips:");
