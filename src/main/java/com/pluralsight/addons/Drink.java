@@ -9,6 +9,9 @@ public class Drink {
         this.type = type;
     }
 
+    public Drink(String drinkOption, boolean size) {
+    }
+
     public double getPrice() {
         return switch (size) {
             case "Small" -> 2.00;

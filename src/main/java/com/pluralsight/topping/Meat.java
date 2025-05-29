@@ -1,6 +1,6 @@
 package com.pluralsight.topping;
 
-public class Meat extends Topping {
+public class Meat extends RegularTopping {
     public Meat(String name) {
         super(name);
     }

@@ -1,0 +1,14 @@
+Order ID: 1
+Sandwiches:
+Size: 4 inches
+Bread: White
+Toasted: Yes
+Meats: Steak, Steak
+Cheeses: American, American
+Regular Toppings: Lettuce, Mayo, Mayo
+Total: $7.10
+Drinks:
+Soda oz Medium - $0.0
+Chips:
+Sour Cream & Onion Chips - $1.50
+Total Price: $8.6
