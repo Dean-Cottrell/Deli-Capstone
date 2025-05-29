@@ -1,16 +1,16 @@
 package com.pluralsight.topping;
 
-public class Meat extends Topping {
-    public Meat(String name) {
+public class ExtraCheese extends PremiumTopping {
+    public ExtraCheese(String name) {
         super(name);
     }
 
     @Override
     public double getPrice(String size) {
         return switch (size) {
-            case "4" -> 1.00;
-            case "8" -> 2.00;
-            case "12" -> 3.00;
+            case "4" -> 0.30;
+            case "8" -> 0.60;
+            case "12" -> 0.90;
             default -> 0.00;
         };
     }

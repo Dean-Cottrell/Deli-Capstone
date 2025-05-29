@@ -2,7 +2,8 @@ package com.pluralsight.sandwich;
 
 import com.pluralsight.topping.Topping;
 import com.pluralsight.topping.RegularTopping;
-import com.pluralsight.topping.PremiumTopping;
+import com.pluralsight.topping.ExtraMeat;
+import com.pluralsight.topping.ExtraCheese;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,38 +11,46 @@ public class Sandwich {
     private String size;
     private String breadType;
     private boolean toasted;
-    private List<PremiumTopping> premiumToppings;
+    private List<ExtraMeat> meats;
+    private List<ExtraCheese> cheeses;
     private List<RegularTopping> regularToppings;
 
     public Sandwich(String size, String breadType, List<Topping> toppings) {
         this.size = size;
         this.breadType = breadType;
         this.toasted = false;
-        premiumToppings = new ArrayList<>();
+        meats = new ArrayList<>();
+        cheeses = new ArrayList<>();
         regularToppings = new ArrayList<>();
 
         for (Topping topping : toppings) {
-            if (isPremium(topping.getName())) {
-                premiumToppings.add((PremiumTopping) topping);
+            if (isMeat(topping.getName())) {
+                meats.add(new ExtraMeat(topping.getName()));
+            } else if (isCheese(topping.getName())) {
+                cheeses.add(new ExtraCheese(topping.getName()));
             } else {
-                regularToppings.add((RegularTopping) topping);
+                regularToppings.add(new RegularTopping(topping.getName()));
             }
         }
     }
 
-    private boolean isPremium(String name) {
-        return List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon",
-                "American", "Provolone", "Cheddar", "Swiss").contains(name);
+    private boolean isMeat(String name) {
+        return List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon").contains(name);
+    }
+
+    private boolean isCheese(String name) {
+        return List.of("American", "Provolone", "Cheddar", "Swiss").contains(name);
     }
 
     public double calculateTotal() {
         double basePrice = switch (size) {
-            case "4" -> 4.99;
-            case "8" -> 7.99;
-            case "12" -> 10.99;
+            case "4" -> 5.50;
+            case "8" -> 7.00;
+            case "12" -> 8.50;
             default -> 0;
         };
-        double toppingPrice = premiumToppings.stream().mapToDouble(t -> t.getPrice(size)).sum() +
+        double toppingPrice = meats.stream().mapToDouble(t -> t.getPrice(size)).sum() +
+                cheeses.stream().mapToDouble(t -> t.getPrice(size)).sum() +
                 regularToppings.stream().mapToDouble(t -> t.getPrice(size)).sum();
         return basePrice + toppingPrice;
     }
@@ -50,7 +59,8 @@ public class Sandwich {
         return "Size: " + size + " inches\n" +
                 "Bread: " + breadType + "\n" +
                 "Toasted: " + (toasted ? "Yes" : "No") + "\n" +
-                "Premium Toppings: " + formatToppings(premiumToppings) + "\n" +
+                "Meats: " + formatToppings(meats) + "\n" +
+                "Cheeses: " + formatToppings(cheeses) + "\n" +
                 "Regular Toppings: " + formatToppings(regularToppings) + "\n" +
                 "Total: $" + String.format("%.2f", calculateTotal());
     }

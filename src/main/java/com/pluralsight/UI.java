@@ -6,6 +6,9 @@ import com.pluralsight.order.OrderFileManager;
 import com.pluralsight.sandwich.Sandwich;
 import com.pluralsight.addons.Drink;
 import com.pluralsight.addons.Chips;
+import com.pluralsight.topping.ExtraCheese;
+import com.pluralsight.topping.ExtraMeat;
+import com.pluralsight.topping.RegularTopping;
 import com.pluralsight.topping.Topping;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +86,9 @@ public class UI {
         int sizeChoice = 0;
         while (sizeChoice < 1 || sizeChoice > 3) {
             System.out.println("Select Sandwich Size:");
-            System.out.println("1) 4 inches");
-            System.out.println("2) 8 inches");
-            System.out.println("3) 12 inches");
+            System.out.println("1: 4 inches");
+            System.out.println("2: 8 inches");
+            System.out.println("3: 12 inches");
             System.out.print("Enter option: ");
             sizeChoice = readInt(scanner);
         }
@@ -94,10 +97,10 @@ public class UI {
         int breadChoice = 0;
         while (breadChoice < 1 || breadChoice > 4) {
             System.out.println("Select your bread:");
-            System.out.println("1) White");
-            System.out.println("2) Wheat");
-            System.out.println("3) Rye");
-            System.out.println("4) Wrap");
+            System.out.println("1: White");
+            System.out.println("2: Wheat");
+            System.out.println("3: Rye");
+            System.out.println("4: Wrap");
             System.out.print("Enter option: ");
             breadChoice = readInt(scanner);
         }
@@ -112,40 +115,37 @@ public class UI {
         List<Topping> toppings = new ArrayList<>();
 
         String[] meatOptions = {"Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"};
-        System.out.println("Select Meat (Choose one):");
+        System.out.println("Select Meat: Choose one");
         printOptions(meatOptions);
         System.out.print("Enter option: ");
         int meatChoice = readInt(scanner);
-        toppings.add(new Topping(meatOptions[meatChoice - 1]) {
-            @Override
-            public double getPrice(String size) {
-                return 0;
-            }
-        });
+        toppings.add(new ExtraMeat(meatOptions[meatChoice - 1]));
+
+        System.out.println("Would you like extra meat? 1: Yes  2: No");
+        int extraMeatChoice = readInt(scanner);
+        if (extraMeatChoice == 1) {
+            toppings.add(new ExtraMeat(meatOptions[meatChoice - 1]));
+        }
 
         String[] cheeseOptions = {"American", "Provolone", "Cheddar", "Swiss"};
-        System.out.println("Select Cheese (Choose one):");
+        System.out.println("Select Cheese: Choose one");
         printOptions(cheeseOptions);
         System.out.print("Enter option: ");
         int cheeseChoice = readInt(scanner);
-        toppings.add(new Topping(cheeseOptions[cheeseChoice - 1]) {
-            @Override
-            public double getPrice(String size) {
-                return 0;
-            }
-        });
+        toppings.add(new ExtraCheese(cheeseOptions[cheeseChoice - 1]));
+
+        System.out.println("Would you like extra cheese? 1: Yes  2: No");
+        int extraCheeseChoice = readInt(scanner);
+        if (extraCheeseChoice == 1) {
+            toppings.add(new ExtraCheese(cheeseOptions[cheeseChoice - 1]));
+        }
 
         String[] sauceOptions = {"Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette"};
-        System.out.println("Select Sauce (Choose one):");
+        System.out.println("Select Sauce: Choose one");
         printOptions(sauceOptions);
         System.out.print("Enter option: ");
         int sauceChoice = readInt(scanner);
-        toppings.add(new Topping(sauceOptions[sauceChoice - 1]) {
-            @Override
-            public double getPrice(String size) {
-                return 0;
-            }
-        });
+        toppings.add(new RegularTopping(sauceOptions[sauceChoice - 1]));
 
         int toastChoice = 0;
         while (toastChoice != 1 && toastChoice != 2) {
